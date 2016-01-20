@@ -1246,6 +1246,9 @@ var HeaderCellController = (function () {
 
     babelHelpers.classCallCheck(this, HeaderCellController);
 
+    Object.assign(this, {
+      $scope: $scope
+    });
     $scope.$watch('hcell.selected', function (newValue) {
       if (newValue != null) {
         _this5.onCheckboxChange();

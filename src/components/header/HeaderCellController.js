@@ -4,6 +4,9 @@ export class HeaderCellController {
 
     /*@ngInject*/
     constructor($scope) {
+        Object.assign(this, {
+            $scope: $scope
+        });
         $scope.$watch('hcell.selected', (newValue) => {
             if (newValue != null) {
                 this.onCheckboxChange();
