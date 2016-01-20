@@ -1577,18 +1577,6 @@ function NextSortDirection(sortType, currentSort) {
 
 class HeaderCellController {
 
-    /*@ngInject*/
-    constructor($scope) {
-        Object.assign(this, {
-            $scope: $scope
-        });
-        $scope.$watch('hcell.selected', (newValue) => {
-            if (newValue != null) {
-                this.onCheckboxChange();
-            }
-        });
-    }
-
     /**
      * Calculates the styles for the header cell directive
      * @return {styles}
@@ -2609,6 +2597,13 @@ class DataTableController {
         this.onSorted();
       }
     });
+    
+    $scope.$watch('dt.headerSelected', (newVal, oldVal) => {
+        if(newVal != null && newVal != oldVal){
+            this.onHeaderCheckboxChange();        
+        }
+    });
+    
   }
 
   /**

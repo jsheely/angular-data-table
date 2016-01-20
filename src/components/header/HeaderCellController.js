@@ -2,18 +2,6 @@ import { NextSortDirection } from '../../utils/utils';
 
 export class HeaderCellController {
 
-    /*@ngInject*/
-    constructor($scope) {
-        Object.assign(this, {
-            $scope: $scope
-        });
-        $scope.$watch('hcell.selected', (newValue) => {
-            if (newValue != null) {
-                this.onCheckboxChange();
-            }
-        });
-    }
-
     /**
      * Calculates the styles for the header cell directive
      * @return {styles}

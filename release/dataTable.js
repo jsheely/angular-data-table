@@ -1249,20 +1249,8 @@
   }
 
   var HeaderCellController = (function () {
-    HeaderCellController.$inject = ["$scope"];
-    function HeaderCellController($scope) {
-      var _this5 = this;
-
+    function HeaderCellController() {
       babelHelpers.classCallCheck(this, HeaderCellController);
-
-      Object.assign(this, {
-        $scope: $scope
-      });
-      $scope.$watch('hcell.selected', function (newValue) {
-        if (newValue != null) {
-          _this5.onCheckboxChange();
-        }
-      });
     }
 
     babelHelpers.createClass(HeaderCellController, [{
@@ -1697,10 +1685,10 @@
     },
 
     buildColumns: function buildColumns(scope, parse) {
-      var _this6 = this;
+      var _this5 = this;
 
       angular.forEach(this.dTables, function (columnElms, id) {
-        _this6.columns[id] = [];
+        _this5.columns[id] = [];
 
         angular.forEach(columnElms, function (c) {
           var column = {};
@@ -1737,7 +1725,7 @@
             column.template = c.innerHTML;
           }
 
-          _this6.columns[id].push(column);
+          _this5.columns[id].push(column);
         });
       });
 
@@ -2001,7 +1989,7 @@
   var DataTableController = (function () {
     DataTableController.$inject = ["$scope", "$filter", "$log", "$transclude"];
     function DataTableController($scope, $filter, $log, $transclude) {
-      var _this7 = this;
+      var _this6 = this;
 
       babelHelpers.classCallCheck(this, DataTableController);
 
@@ -2016,19 +2004,25 @@
       this.options.$outer = $scope.$parent;
 
       $scope.$watch('dt.options.columns', function (newVal, oldVal) {
-        _this7.transposeColumnDefaults();
+        _this6.transposeColumnDefaults();
 
         if (newVal.length !== oldVal.length) {
-          _this7.adjustColumns();
+          _this6.adjustColumns();
         }
 
-        _this7.calculateColumns();
+        _this6.calculateColumns();
       }, true);
 
       var watch = $scope.$watch('dt.rows', function (newVal) {
         if (newVal) {
           watch();
-          _this7.onSorted();
+          _this6.onSorted();
+        }
+      });
+
+      $scope.$watch('dt.headerSelected', function (newVal, oldVal) {
+        if (newVal != null && newVal != oldVal) {
+          _this6.onHeaderCheckboxChange();
         }
       });
     }
@@ -2036,15 +2030,15 @@
     babelHelpers.createClass(DataTableController, [{
       key: "defaults",
       value: function defaults() {
-        var _this8 = this;
+        var _this7 = this;
 
         this.expanded = this.expanded || {};
 
         this.options = angular.extend(angular.copy(TableDefaults), this.options);
 
         angular.forEach(TableDefaults.paging, function (v, k) {
-          if (!_this8.options.paging[k]) {
-            _this8.options.paging[k] = v;
+          if (!_this7.options.paging[k]) {
+            _this7.options.paging[k] = v;
           }
         });
 

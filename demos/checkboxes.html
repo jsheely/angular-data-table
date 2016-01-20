@@ -71,7 +71,7 @@
 <body ng-app="app" ng-controller="HomeController">
 
     <div class="wrapper">
-        <dtable options="options" header-selected="header" rows="data" class="material" selected="selected" on-row-click="onRowClick(row)" on-select="onSelect(rows)"></dtable>
+        <dtable options="options" header-selected="isHeaderChecked" rows="data" class="material" selected="selected" on-row-click="onRowClick(row)" on-select="onSelect(rows)"></dtable>
 
         <div class="selected-box">
             <h5>Selected list</h5>
@@ -88,6 +88,7 @@
         var module = angular.module('app', [ dt.default.name ]);
 
         module.controller('HomeController', function($scope, $http, $timeout){
+            
           $scope.options = {
             rowHeight: 50,
             headerHeight: 50,
@@ -112,13 +113,12 @@
           }
           
           $timeout(function(){
-             $scope.header = true; 
+             $scope.isHeaderChecked = true; 
              console.log('Complete');
           },3000);
           
 
           $scope.selected = [];
-          $scope.header = false;
 
           $http.get('/demos/data/100.json').success(function(data) {
             $scope.data = data.splice(0, 10);

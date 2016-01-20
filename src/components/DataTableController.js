@@ -40,6 +40,13 @@ export class DataTableController {
         this.onSorted();
       }
     });
+    
+    $scope.$watch('dt.headerSelected', (newVal, oldVal) => {
+        if(newVal != null && newVal != oldVal){
+            this.onHeaderCheckboxChange();        
+        }
+    });
+    
   }
 
   /**
